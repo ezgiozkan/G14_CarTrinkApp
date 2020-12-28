@@ -1,4 +1,4 @@
-package com.example.ise308.ozkan.ezgi.g14_cartrink
+package com.example.ise308.ozkan.ezgi.g14_cartrinkapp
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,10 +9,6 @@ import android.view.View
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ise308.ozkan.ezgi.g14_cartrinkapp.Car
-import com.example.ise308.ozkan.ezgi.g14_cartrinkapp.NewCarPage
-import com.example.ise308.ozkan.ezgi.g14_cartrinkapp.R
-import com.example.ise308.ozkan.ezgi.g14_trinkcar.CarAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -78,6 +74,11 @@ class MainActivity : AppCompatActivity() {
 
         carList.add(c)
         adapter!!.notifyDataSetChanged()
+    }
+    fun showCar(carToShow: Int) {
+        val dialog = ShowCarListPage()
+        dialog.sendCarSelected(carList!![carToShow])
+        dialog.show(supportFragmentManager, "")
     }
 
 
