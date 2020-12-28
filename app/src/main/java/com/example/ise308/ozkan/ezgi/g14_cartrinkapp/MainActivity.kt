@@ -31,11 +31,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        addCarBtn.setOnClickListener { view->
-            val dialog = NewCarPage()
-            dialog.show(supportFragmentManager, "")
-        }
-
         recyclerView = findViewById<View>(R.id.recylerView) as RecyclerView
 
         adapter = CarAdapter(this, this.carList!!)
@@ -57,13 +52,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId){
+        return when (item.itemId) {
+
             R.id.OptionItemSelected -> {
 
-                val intent = Intent(this, NewCarPage::class.java)
+                //val intent = Intent(this, NewCarPage::class.java)
 
-                startActivity(intent)
+              //  startActivity(intent)
+              //  true
+
+                val dialog = NewCarPage()
+                dialog.show(supportFragmentManager, "")
+
                 true
+
             }
             else -> super.onOptionsItemSelected(item)
         }

@@ -1,8 +1,10 @@
 package com.example.ise308.ozkan.ezgi.g14_cartrinkapp
 
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -28,14 +30,15 @@ class CarAdapter(
         RecyclerView.ViewHolder(view),
         View.OnClickListener {
 
-        internal var brandName = view.findViewById<TextView>(R.id.brandName)
+        internal var brandName = view.findViewById<TextView>(R.id.listBrandName)
 
-        internal var modelName = view.findViewById<TextView>(R.id.modelName)
+        internal var modelName = view.findViewById<TextView>(R.id.listModelName)
 
-        internal var price = view.findViewById<TextView>(R.id.price)
+        internal var price = view.findViewById<TextView>(R.id.listPrice)
 
-        internal var kilometer = view.findViewById<TextView>(R.id.kilometer)
+        internal var kilometer = view.findViewById<TextView>(R.id.listKilometer)
 
+        internal var img = view.findViewById<ImageView>(R.id.img)
 
         init {
             view.isClickable = true
@@ -59,6 +62,8 @@ class CarAdapter(
         holder.price.text = car.price.toString()
 
         holder.kilometer.text = car.km.toString()
+
+        holder.img.setImageURI(car.image)
 
 
 
