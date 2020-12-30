@@ -31,7 +31,6 @@ class JsonSerializer(
       }
       finally {
           if (writer != null) {
-
               writer.close()
           }
       }
@@ -52,21 +51,20 @@ class JsonSerializer(
             reader = BufferedReader(InputStreamReader(`in`))
             val jsonString = StringBuilder()
 
-            for (line in reader.readLine()) {
+            for (line in reader.readLines()) {
                 jsonString.append(line)
             }
 
-            val jArray = JSONTokener(jsonString.toString()).
-            nextValue() as JSONArray
+            val jArray = JSONTokener(jsonString.toString()).nextValue() as JSONArray
 
             for (i in 0 until jArray.length()) {
                 carList.add(Car(jArray.getJSONObject(i)))
             }
         } catch (e: FileNotFoundException) {
 
-        } /*finally {
+        } finally {
             reader!!.close()
-        }*/
+        }
 
         return carList
 

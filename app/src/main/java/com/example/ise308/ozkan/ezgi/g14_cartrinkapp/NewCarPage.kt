@@ -72,11 +72,12 @@ class NewCarPage : DialogFragment() {
             newCar.modelName = modelName.text.toString()
 
             newCar.price = price.text.toString().toDouble()
-
+            newCar.color = color.text.toString()
             newCar.fuelType = fuelType.text.toString()
             newCar.gearType = gearType.text.toString()
             newCar.km = kilometer.text.toString().toDouble()
-            newCar.image = imageUri
+            newCar.image = Uri.parse(imageUri.toString())
+
 
 
             val callingActivity = activity as MainActivity?

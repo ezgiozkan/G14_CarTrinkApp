@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     private var carList : ArrayList<Car>? = null
     private var recyclerView: RecyclerView? = null
     private var mSerializer: JsonSerializer? = null
+    private  var showDividers: Boolean = false
+
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -109,19 +112,28 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        val prefs = getSharedPreferences("Car Trink App ", Context.MODE_PRIVATE)
+
+        showDividers = prefs.getBoolean("dividers", true)
+
+        if (showDividers)
+            recyclerView!!.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+
+        else{
+            if (recyclerView!!.itemDecorationCount > 0)
+                recyclerView!!.removeItemDecorationAt(0)
+        }
+
+    }
     override fun onPause() {
         super.onPause()
-
         saveCar()
+        Toast.makeText(this, "Cars saved to JSON file", Toast.LENGTH_SHORT).show()
+
     }
-
-
-
-
-
-
-
-
 
 
 }

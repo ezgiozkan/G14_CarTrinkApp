@@ -1,5 +1,6 @@
 package com.example.ise308.ozkan.ezgi.g14_cartrinkapp
 
+import android.content.Intent
 import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
@@ -46,7 +47,9 @@ class CarAdapter(
         }
 
         override fun onClick(view: View) {
-            mainActivity.showCar(adapterPosition)
+        //    mainActivity.showCar(adapterPosition)
+            val intentToCarPager = Intent(view!!.context, CarPagerActivity::class.java)
+            view.context.startActivity(intentToCarPager)
         }
 
     }
