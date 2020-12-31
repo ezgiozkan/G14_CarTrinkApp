@@ -1,9 +1,11 @@
 package com.example.ise308.ozkan.ezgi.g14_cartrinkapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -26,8 +28,7 @@ class ShowCarFragment : Fragment() {
         val tvDescription = view.findViewById<TextView>(R.id.carDescription)
         val tvImage = view.findViewById<ImageView>(R.id.imageView2)
 
-        tvBrandName.text = arguments!!.getString("brandName")
-        tvModelName.text = arguments!!.getString("modelName")
+        tvBrandName.text = arguments!!.getString("brandName") + "/" + arguments!!.getString("modelName")
         tvFuelType.text = arguments!!.getString("fuelType")
         tvGearType.text = arguments!!.getString("gearType")
         tvColor.text = arguments!!.getString("color")
@@ -35,6 +36,15 @@ class ShowCarFragment : Fragment() {
         tvPrice.text = arguments!!.getString("price")
         tvKilometer.text = arguments!!.getString("kilometer")
         // tvImage.setImageURI() = arguments!!.getString("image")
+
+        val backButton = view.findViewById<ImageButton>(R.id.backButton)
+
+        backButton.setOnClickListener {
+
+            getActivity()?.getSupportFragmentManager()?.popBackStack();
+        }
+
+
 
         return view
     }
@@ -46,10 +56,11 @@ class ShowCarFragment : Fragment() {
             bundle.putString("modelName", car.modelName)
             bundle.putString("brandName", car.brandName)
             bundle.putString("price", car.price.toString())
-            bundle.putString("km", car.km.toString())
+            bundle.putString("kilometer", car.km.toString())
             bundle.putString("color", car.color)
-            bundle.putString("FuelType", car.fuelType)
+            bundle.putString("fuelType", car.fuelType)
             bundle.putString("gearType", car.gearType)
+            bundle.putString("description", car.description)
             bundle.putString("image", car.image.toString())
             fragment.arguments = bundle
             return fragment

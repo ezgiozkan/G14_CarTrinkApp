@@ -40,10 +40,12 @@ class ShowCarListPage: DialogFragment() {
 
         txtbrandName.text = car!!.brandName
         txtmodelName.text = car!!.modelName
+        txtColor.text = car!!.color
         txtPrice.text = car!!.price.toString()
         txtKilometer.text = car!!.km.toString()
-
-
+        txtFuelType.text = car!!.fuelType
+        txtGearType.text = car!!.gearType
+        txtDescription.text = car!!.description
         return builder.create()
 
     }
