@@ -5,12 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.car_frame.*
 
 class ShowCarFragment : Fragment() {
+
+    var isOpen = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +34,10 @@ class ShowCarFragment : Fragment() {
         val tvKilometer = view.findViewById<TextView>(R.id.carKilometer)
         val tvDescription = view.findViewById<TextView>(R.id.carDescription)
         val tvImage = view.findViewById<ImageView>(R.id.imageView2)
+        val addButton = view.findViewById<FloatingActionButton>(R.id.addButton)
+        val editButton = view.findViewById<FloatingActionButton>(R.id.editButton)
+        val deleteButton = view.findViewById<FloatingActionButton>(R.id.deleteButton)
+
 
         tvBrandName.text = arguments!!.getString("brandName") + "/" + arguments!!.getString("modelName")
         tvFuelType.text = arguments!!.getString("fuelType")
@@ -37,12 +48,48 @@ class ShowCarFragment : Fragment() {
         tvKilometer.text = arguments!!.getString("kilometer")
         // tvImage.setImageURI() = arguments!!.getString("image")
 
-        val backButton = view.findViewById<ImageButton>(R.id.backButton)
+        val fabOpen = AnimationUtils.loadAnimation(this.context,R.anim.fab_open)
+        val fabClose = AnimationUtils.loadAnimation(this.context,R.anim.fab_close)
+        val fabRAntiClockwise = AnimationUtils.loadAnimation(this.context,R.anim.rotate_anticlockwise)
+       val fabRClockwise = AnimationUtils.loadAnimation(this.context,R.anim.rotate_clockwise)
 
-        backButton.setOnClickListener {
+        println("51. satır")
 
-            getActivity()?.getSupportFragmentManager()?.popBackStack();
+
+        addButton.setOnClickListener() {
+            if (isOpen) {
+
+                editButton.startAnimation(fabClose)
+                deleteButton.startAnimation(fabClose)
+                addButton.startAnimation(fabRClockwise)
+                println("60. satır")
+
+
+                isOpen = false
+
+            }else {
+
+                editButton.startAnimation(fabOpen)
+                deleteButton.startAnimation(fabOpen)
+                addButton.startAnimation(fabRAntiClockwise)
+                editButton.isClickable
+                deleteButton.isClickable
+                println("72. satır")
+                isOpen = true
+
+            }
+            editButton.setOnClickListener()  {
+
+                print("xx")
+            }
+            deleteButton.setOnClickListener()  {
+
+                print("xx")
+            }
         }
+
+
+
 
 
 

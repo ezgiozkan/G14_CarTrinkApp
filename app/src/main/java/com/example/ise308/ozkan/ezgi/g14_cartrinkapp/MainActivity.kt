@@ -8,12 +8,14 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.car_frame.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private var recyclerView: RecyclerView? = null
     private var mSerializer: JsonSerializer? = null
     private  var showDividers: Boolean = false
+
 
 
 
@@ -63,6 +66,10 @@ class MainActivity : AppCompatActivity() {
 
         // set the adapter
         recyclerView!!.adapter = adapter
+
+
+
+
 
 
     }

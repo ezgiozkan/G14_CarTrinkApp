@@ -2,17 +2,22 @@ package com.example.ise308.ozkan.ezgi.g14_cartrinkapp
 
 import android.app.Dialog
 import android.os.Bundle
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import kotlinx.android.synthetic.main.car_frame.*
 
 class ShowCarListPage: DialogFragment() {
 
     private var car: Car? = null
 
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
 
 
@@ -37,6 +42,10 @@ class ShowCarListPage: DialogFragment() {
         val txtGearType = dialogView.findViewById<TextView>(R.id.carGearType)
 
         val txtDescription = dialogView.findViewById<TextView>(R.id.carDescription)
+
+
+
+
 
         txtbrandName.text = car!!.brandName
         txtmodelName.text = car!!.modelName
