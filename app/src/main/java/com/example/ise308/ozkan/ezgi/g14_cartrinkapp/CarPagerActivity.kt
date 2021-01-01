@@ -12,7 +12,7 @@ import androidx.viewpager.widget.ViewPager
 
 private const val TAG = "CarpagerActivity"
 private var carList: ArrayList<Car>? = null
-private var mSerializer : JsonSerializer? = null
+var mSerializer : JsonSerializer? = null
 
 class CarPagerActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +33,10 @@ class CarPagerActivity : AppCompatActivity(){
         var carFragmentList = java.util.ArrayList<Fragment>()
         for (car in carList!!) {
             carFragmentList.add(ShowCarFragment.newInstance(car))
+
         }
+
+
 
         val pageAdapter = CarPagerAdapter(supportFragmentManager, carFragmentList)
         findViewById<ViewPager>(R.id.pager_cars).adapter = pageAdapter

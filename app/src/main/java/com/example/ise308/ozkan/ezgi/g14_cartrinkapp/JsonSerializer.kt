@@ -3,15 +3,16 @@ package com.example.ise308.ozkan.ezgi.g14_cartrinkapp
 import android.content.Context
 import org.json.JSONArray
 import org.json.JSONException
+import org.json.JSONObject
 import org.json.JSONTokener
 import java.io.*
+
 
 class JsonSerializer(
 
         private val filename : String,
         private val context: Context
 ) {
-
 
   @Throws(IOException::class,JSONException::class)
   fun save(cars: List<Car>)
@@ -37,6 +38,26 @@ class JsonSerializer(
 
 
   }
+
+    @Throws(JSONException::class)
+    fun removeNullFields(`object`: Any) {
+        if (`object` is JSONArray) {
+            val array = `object`
+            for (i in 0 until array.length()) removeNullFields(array[i])
+        } else if (`object` is JSONObject) {
+            val json = `object`
+            val names = json.names() ?: return
+            for (i in 0 until names.length()) {
+                val key = names.getString(i)
+                if (json.isNull(key)) {
+                    json.remove(key)
+                } else {
+                    removeNullFields(json[key])
+                }
+            }
+        }
+    }
+
 
     @Throws(IOException::class, JSONException::class)
     fun load(): ArrayList<Car> {

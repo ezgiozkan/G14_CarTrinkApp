@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 class CarAdapter(
 
     private val mainActivity: MainActivity,
-    private val carList: List<Car>)
+    private val carList: ArrayList<Car>)
 
     : RecyclerView.Adapter<CarAdapter.ListItemHolder>(){
 
@@ -29,6 +29,7 @@ class CarAdapter(
     }
     inner class ListItemHolder(view: View) :
         RecyclerView.ViewHolder(view),
+        View.OnLongClickListener,
         View.OnClickListener {
 
         internal var brandName = view.findViewById<TextView>(R.id.listBrandName)
@@ -44,13 +45,28 @@ class CarAdapter(
         init {
             view.isClickable = true
             view.setOnClickListener(this)
+            view.setOnLongClickListener(this)
         }
 
+        override fun onLongClick(v: View?): Boolean {
+
+            val position = adapterPosition
+            carList!!.removeAt(position)
+            notifyItemRemoved(position)
+            mSerializer?.save(carList!!)
+            return true
+        }
         override fun onClick(view: View) {
         //    mainActivity.showCar(adapterPosition)
             val intentToCarPager = Intent(view!!.context, CarPagerActivity::class.java)
+            intentToCarPager.putExtra("adapterPosition",adapterPosition)
+
             view.context.startActivity(intentToCarPager)
+
         }
+
+
+
 
     }
 
@@ -69,9 +85,6 @@ class CarAdapter(
         holder.img.setImageURI(car.image)
 
 
-
-
-
     }
 
     override fun getItemCount(): Int {
@@ -80,6 +93,7 @@ class CarAdapter(
         }
         return -1
     }
+
 
 
 }

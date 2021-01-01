@@ -1,21 +1,19 @@
 package com.example.ise308.ozkan.ezgi.g14_cartrinkapp
 
 import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.car_frame.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -68,16 +66,13 @@ class MainActivity : AppCompatActivity() {
         recyclerView!!.adapter = adapter
 
 
-
-
-
-
     }
 
     fun createNewCar(c: Car){
 
         carList!!.add(c)
         adapter!!.notifyDataSetChanged()
+
     }
     fun showCar(carToShow: Int) {
         val dialog = ShowCarListPage()
@@ -85,6 +80,15 @@ class MainActivity : AppCompatActivity() {
         dialog.show(supportFragmentManager, "")
     }
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    fun deleteCar() {
+
+        var adapterPos = intent?.extras?.get("adapterPosition")
+        //mSerializer?.delete(carList!!,adapterPos as Int)
+        //carList!!.remove(c)
+        //mSerializer.removeNullFields(car)
+
+    }
     private fun saveCar() {
         try {
             mSerializer!!.save(this.carList!!)
@@ -92,10 +96,6 @@ class MainActivity : AppCompatActivity() {
             Log.e("Error Saving Cars", "", e)
         }
     }
-
-
-
-
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
