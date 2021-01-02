@@ -48,19 +48,22 @@ class CarAdapter(
             view.setOnLongClickListener(this)
         }
 
+
         override fun onLongClick(v: View?): Boolean {
 
-            val position = adapterPosition
-            carList!!.removeAt(position)
-            notifyItemRemoved(position)
-            mSerializer?.save(carList!!)
+            //val position = adapterPosition
+            //carList!!.removeAt(position)
+            //notifyItemRemoved(position)
+            //mSerializer?.save(carList!!)
             return true
         }
+
+
         override fun onClick(view: View) {
         //    mainActivity.showCar(adapterPosition)
+
             val intentToCarPager = Intent(view!!.context, CarPagerActivity::class.java)
             intentToCarPager.putExtra("adapterPosition",adapterPosition)
-
             view.context.startActivity(intentToCarPager)
 
         }

@@ -14,7 +14,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class ShowCarFragment(var car: Car) : Fragment() {
+class ShowCarFragment : Fragment() {
 
     var isOpen = false
 
@@ -54,9 +54,6 @@ class ShowCarFragment(var car: Car) : Fragment() {
         val fabRAntiClockwise = AnimationUtils.loadAnimation(this.context,R.anim.rotate_anticlockwise)
         val fabRClockwise = AnimationUtils.loadAnimation(this.context,R.anim.rotate_clockwise)
 
-        println("51. satır")
-
-
 
         addButton.setOnClickListener() {
 
@@ -67,7 +64,7 @@ class ShowCarFragment(var car: Car) : Fragment() {
                 editButton.startAnimation(fabClose)
                 deleteButton.startAnimation(fabClose)
                 addButton.startAnimation(fabRClockwise)
-                println("60. satır")
+
 
 
                 isOpen = false
@@ -79,13 +76,15 @@ class ShowCarFragment(var car: Car) : Fragment() {
                 addButton.startAnimation(fabRAntiClockwise)
                 editButton.isClickable
                 deleteButton.isClickable
-                println("72. satır")
+
                 isOpen = true
 
             }
             editButton.setOnClickListener()  {
 
-                print("xx")
+
+                val intentToCarPager = Intent(view!!.context, CarEditPagerActivity::class.java)
+                view.context.startActivity(intentToCarPager)
             }
             deleteButton.setOnClickListener()  {
 
@@ -98,13 +97,12 @@ class ShowCarFragment(var car: Car) : Fragment() {
                     fragmentManager?.beginTransaction()?.remove(this)?.commit()
 
                     val intent = Intent(this.context,MainActivity::class.java)
+                    val myPost = intent.getIntExtra("adapterPosition", 123)
 
+                    val mySecondPost = intent.putExtra("adapter",myPost)
                     startActivity(intent)
 
-                    (activity as MainActivity).deleteCar()
-                    (activity as MainActivity).onBackPressed()
-
-
+                    //(activity as MainActivity).deleteCar(myPost)
                 }
                 mAlertDialog.setNegativeButton("No") { dialog, id ->
 
@@ -115,17 +113,14 @@ class ShowCarFragment(var car: Car) : Fragment() {
             }
         }
 
-
-
-
-
-
         return view
     }
 
+
+
     companion object{
         fun newInstance(car: Car) : ShowCarFragment {
-            val fragment = ShowCarFragment(car)
+            val fragment = ShowCarFragment()
             val bundle = Bundle(1)
             bundle.putString("modelName", car.modelName)
             bundle.putString("brandName", car.brandName)
@@ -137,6 +132,8 @@ class ShowCarFragment(var car: Car) : Fragment() {
             bundle.putString("description", car.description)
             bundle.putString("image", car.image.toString())
             fragment.arguments = bundle
+
+
             return fragment
         }
     }

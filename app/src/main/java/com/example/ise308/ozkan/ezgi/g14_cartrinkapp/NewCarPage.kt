@@ -66,8 +66,6 @@ class NewCarPage : DialogFragment() {
 
             var newCar = Car()
 
-
-
             newCar.brandName = brandName.text.toString()
             newCar.modelName = modelName.text.toString()
 
@@ -90,7 +88,6 @@ class NewCarPage : DialogFragment() {
         }
 
         return builder.create()
-
 
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

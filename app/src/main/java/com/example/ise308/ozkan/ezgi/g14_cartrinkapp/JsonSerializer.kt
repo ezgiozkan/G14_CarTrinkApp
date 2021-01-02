@@ -1,6 +1,8 @@
 package com.example.ise308.ozkan.ezgi.g14_cartrinkapp
 
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -39,26 +41,6 @@ class JsonSerializer(
 
   }
 
-    @Throws(JSONException::class)
-    fun removeNullFields(`object`: Any) {
-        if (`object` is JSONArray) {
-            val array = `object`
-            for (i in 0 until array.length()) removeNullFields(array[i])
-        } else if (`object` is JSONObject) {
-            val json = `object`
-            val names = json.names() ?: return
-            for (i in 0 until names.length()) {
-                val key = names.getString(i)
-                if (json.isNull(key)) {
-                    json.remove(key)
-                } else {
-                    removeNullFields(json[key])
-                }
-            }
-        }
-    }
-
-
     @Throws(IOException::class, JSONException::class)
     fun load(): ArrayList<Car> {
 
@@ -80,22 +62,20 @@ class JsonSerializer(
 
             for (i in 0 until jArray.length()) {
                 carList.add(Car(jArray.getJSONObject(i)))
+
             }
+
+
         } catch (e: FileNotFoundException) {
 
         } finally {
             reader!!.close()
+
         }
 
         return carList
 
-
-
     }
-
-
-
-
 
 
 }

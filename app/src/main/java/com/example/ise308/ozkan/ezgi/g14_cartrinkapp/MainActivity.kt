@@ -1,6 +1,7 @@
 package com.example.ise308.ozkan.ezgi.g14_cartrinkapp
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -15,7 +16,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),View.OnLongClickListener{
 
     private var adapter: CarAdapter? = null
     private var carList : ArrayList<Car>? = null
@@ -33,12 +34,15 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         mSerializer = JsonSerializer("CarTrinkApp.json",
                 applicationContext)
+
+
 
         try {
             carList = mSerializer!!.load()
@@ -50,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById<View>(R.id.recylerView) as RecyclerView
 
         adapter = CarAdapter(this, this.carList!!)
+
 
         val layoutManager = LinearLayoutManager(applicationContext)
 
@@ -65,8 +70,17 @@ class MainActivity : AppCompatActivity() {
         // set the adapter
         recyclerView!!.adapter = adapter
 
-
     }
+
+    override fun onLongClick(v: View?): Boolean {
+
+        //val position = adapterPosition
+        //carList!!.removeAt(position)
+        //adapter!!.notifyItemRemoved(position)
+        mSerializer?.save(carList!!)
+        return true
+    }
+
 
     fun createNewCar(c: Car){
 
@@ -80,13 +94,16 @@ class MainActivity : AppCompatActivity() {
         dialog.show(supportFragmentManager, "")
     }
 
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
-    fun deleteCar() {
 
-        var adapterPos = intent?.extras?.get("adapterPosition")
-        //mSerializer?.delete(carList!!,adapterPos as Int)
-        //carList!!.remove(c)
-        //mSerializer.removeNullFields(car)
+    fun deleteCar(adapterPosition: Int) {
+
+        println("asd")
+        println(adapterPosition)
+        val position = adapterPosition
+        carList!!.removeAt(position)
+        adapter!!.notifyItemRemoved(position)
+        mSerializer!!.save(carList!!)
+
 
     }
     private fun saveCar() {
@@ -141,6 +158,7 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, "Cars saved to JSON file", Toast.LENGTH_SHORT).show()
 
     }
+
 
 
 }

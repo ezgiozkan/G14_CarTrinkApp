@@ -49,7 +49,6 @@ class Car {
         gearType = jo.getString(JSON_GEARTYPE)
         description = jo.getString(JSON_DESCRIPTION)
 
-        
     }
 
     constructor(){
@@ -73,7 +72,12 @@ class Car {
         return jo
     }
 
+    fun updateJson(){
 
+        print("78.satır")
+        val jo = JSONObject()
+        jo.put(JSON_BRANDNAME,brandName)
 
+    }
 
 }

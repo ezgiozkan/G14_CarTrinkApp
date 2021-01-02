@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.G14_CarTrinkApp">
         <activity android:name=".CarPagerActivity"/>
+        <activity android:name=".CarEditPagerActivity"/>
 
         <activity android:name=".MainActivity">
             <intent-filter>
