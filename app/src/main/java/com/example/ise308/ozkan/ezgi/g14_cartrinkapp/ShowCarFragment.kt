@@ -58,6 +58,7 @@ class ShowCarFragment : Fragment() {
         addButton.setOnClickListener() {
 
 
+            print("New")
 
             if (isOpen) {
 
