@@ -74,7 +74,7 @@ class Car {
 
     fun updateJson(){
 
-        print("78.satır")
+
         val jo = JSONObject()
         jo.put(JSON_BRANDNAME,brandName)
 

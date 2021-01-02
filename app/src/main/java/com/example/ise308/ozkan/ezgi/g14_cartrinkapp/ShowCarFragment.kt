@@ -14,7 +14,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class ShowCarFragment : Fragment() {
+class ShowCarFragment() : Fragment() {
 
     var isOpen = false
 
@@ -58,7 +58,7 @@ class ShowCarFragment : Fragment() {
         addButton.setOnClickListener() {
 
 
-            print("New")
+
 
             if (isOpen) {
 
@@ -83,7 +83,6 @@ class ShowCarFragment : Fragment() {
             }
             editButton.setOnClickListener()  {
 
-
                 val intentToCarPager = Intent(view!!.context, CarEditPagerActivity::class.java)
                 view.context.startActivity(intentToCarPager)
             }
@@ -95,7 +94,10 @@ class ShowCarFragment : Fragment() {
 
                 mAlertDialog.setPositiveButton("Yes") { dialog, id ->
 
+
                     fragmentManager?.beginTransaction()?.remove(this)?.commit()
+
+
 
                     val intent = Intent(this.context,MainActivity::class.java)
                     val myPost = intent.getIntExtra("adapterPosition", 123)
@@ -103,7 +105,9 @@ class ShowCarFragment : Fragment() {
                     val mySecondPost = intent.putExtra("adapter",myPost)
                     startActivity(intent)
 
-                    //(activity as MainActivity).deleteCar(myPost)
+
+
+
                 }
                 mAlertDialog.setNegativeButton("No") { dialog, id ->
 
