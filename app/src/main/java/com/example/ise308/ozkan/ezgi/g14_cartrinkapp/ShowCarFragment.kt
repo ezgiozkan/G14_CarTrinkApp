@@ -83,15 +83,20 @@ class ShowCarFragment() : Fragment() {
             }
             editButton.setOnClickListener()  {
 
+                editButton.startAnimation(fabRClockwise)
+
                 val intentToCarPager = Intent(view!!.context, CarEditPagerActivity::class.java)
                 view.context.startActivity(intentToCarPager)
             }
             deleteButton.setOnClickListener()  {
 
+
+
                 val mAlertDialog = AlertDialog.Builder(this.activity)
 
                 mAlertDialog.setTitle("Are you sure you want to this advertising!") //set alertdialog title
 
+                deleteButton.startAnimation(fabRClockwise)
                 mAlertDialog.setPositiveButton("Yes") { dialog, id ->
 
 
