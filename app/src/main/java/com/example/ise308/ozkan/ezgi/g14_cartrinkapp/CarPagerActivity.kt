@@ -24,7 +24,7 @@ class CarPagerActivity : AppCompatActivity(){
 
         mSerializer = JsonSerializer("CarTrinkApp.json",
             applicationContext)
-
+        // Json data are loading here.
         try {
             carList = mSerializer!!.load()
         } catch (e: Exception) {

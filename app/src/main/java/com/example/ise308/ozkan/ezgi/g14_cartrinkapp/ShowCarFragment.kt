@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -20,27 +19,34 @@ class ShowCarFragment(car: Car) : Fragment() {
     var myCar = car
 
 
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.car_frame, container, false)
+
         val tvBrandName = view.findViewById<TextView>(R.id.carBrandName)
-        //val tvModelName = view.findViewById<TextView>(R.id.carModelName)
+
         val tvPrice = view.findViewById<TextView>(R.id.carPrice)
+
         val tvColor = view.findViewById<TextView>(R.id.carColor)
+
         val tvFuelType = view.findViewById<TextView>(R.id.carFuelType)
+
         val tvGearType = view.findViewById<TextView>(R.id.carGearType)
+
         val tvKilometer = view.findViewById<TextView>(R.id.carKilometer)
+
         val tvDescription = view.findViewById<TextView>(R.id.carDescription)
-        val tvImage = view.findViewById<ImageView>(R.id.imageView2)
+        //val tvImage = view.findViewById<ImageView>(R.id.imageView2)
         val addButton = view.findViewById<FloatingActionButton>(R.id.addButton)
+
         val editButton = view.findViewById<FloatingActionButton>(R.id.editButton)
+
         val deleteButton = view.findViewById<FloatingActionButton>(R.id.deleteButton)
 
-
+        //  Showing the saved objects info
         tvBrandName.text = arguments!!.getString("brandName") + " / " + arguments!!.getString("modelName")
         tvFuelType.text = arguments!!.getString("fuelType")
         tvGearType.text = arguments!!.getString("gearType")
@@ -50,15 +56,14 @@ class ShowCarFragment(car: Car) : Fragment() {
         tvKilometer.text = arguments!!.getString("kilometer")
         // tvImage.setImageURI() = arguments!!.getString("image")
 
+        // Getting the ids of the animations created in the anim file
         val fabOpen = AnimationUtils.loadAnimation(this.context,R.anim.fab_open)
         val fabClose = AnimationUtils.loadAnimation(this.context,R.anim.fab_close)
         val fabRAntiClockwise = AnimationUtils.loadAnimation(this.context,R.anim.rotate_anticlockwise)
         val fabRClockwise = AnimationUtils.loadAnimation(this.context,R.anim.rotate_clockwise)
 
-
+        // Create floating action bar and adding button animations.
         addButton.setOnClickListener() {
-
-
 
 
             if (isOpen) {
@@ -66,8 +71,6 @@ class ShowCarFragment(car: Car) : Fragment() {
                 editButton.startAnimation(fabClose)
                 deleteButton.startAnimation(fabClose)
                 addButton.startAnimation(fabRClockwise)
-
-
 
                 isOpen = false
 
@@ -82,6 +85,7 @@ class ShowCarFragment(car: Car) : Fragment() {
                 isOpen = true
 
             }
+            // Showing the add_edit_fragment xml file.
             editButton.setOnClickListener()  {
 
                 editButton.startAnimation(fabRClockwise)
@@ -91,6 +95,7 @@ class ShowCarFragment(car: Car) : Fragment() {
 
 
             }
+            // Create alert dialog Message. If user choose yes button, delete data on Json file.
             deleteButton.setOnClickListener()  {
 
 
@@ -115,6 +120,7 @@ class ShowCarFragment(car: Car) : Fragment() {
                     (activity as MainActivity).onBackPressed()
 
                 }
+                // If user choose NO, return the car_frame xml.
                 mAlertDialog.setNegativeButton("No") { dialog, id ->
 
                 }
@@ -126,7 +132,7 @@ class ShowCarFragment(car: Car) : Fragment() {
     }
 
 
-
+    //It enables the transfer of data between CarPagerActivity and ShowCarFragment.
     companion object{
         fun newInstance(car: Car) : ShowCarFragment {
             val fragment = ShowCarFragment(car)

@@ -16,27 +16,24 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class MainActivity : AppCompatActivity(),View.OnLongClickListener{
+class MainActivity : AppCompatActivity(){
 
 
     private var adapter: CarAdapter? = null
     private var carList : ArrayList<Car>? = null
-    var currentPosition = -1
     private var recyclerView: RecyclerView? = null
     private var mSerializer: JsonSerializer? = null
     private  var showDividers: Boolean = false
 
 
 
-
+    // Our custom tool bar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
     }
-
-
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    // Calling mSerializer Load function for getting data.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -45,14 +42,13 @@ class MainActivity : AppCompatActivity(),View.OnLongClickListener{
                 applicationContext)
 
 
-
         try {
             carList = mSerializer!!.load()
         } catch (e: Exception) {
             carList = ArrayList()
             Log.e("Error loading cars: ", "", e)
         }
-
+        // We get our Recycler View from xml file.
         recyclerView = findViewById<View>(R.id.recylerView) as RecyclerView
 
         adapter = CarAdapter(this, this.carList!!)
@@ -68,22 +64,14 @@ class MainActivity : AppCompatActivity(),View.OnLongClickListener{
 
     }
 
-    override fun onLongClick(v: View?): Boolean {
-
-        //val position = adapterPosition
-        //carList!!.removeAt(position)
-        //adapter!!.notifyItemRemoved(position)
-        //mSerializer?.save(carList!!)
-        return true
-    }
-
-
+    // Create new object
     fun createNewCar(c: Car){
 
         carList!!.add(c)
         adapter!!.notifyDataSetChanged()
 
     }
+    // Delete the object
     fun deleteCarSecond(car:Car){
 
         carList!!.remove(car)
@@ -93,7 +81,7 @@ class MainActivity : AppCompatActivity(),View.OnLongClickListener{
 
     }
 
-
+    // Saving object.
     private fun saveCar() {
         try {
             mSerializer!!.save(this.carList!!)
@@ -102,7 +90,7 @@ class MainActivity : AppCompatActivity(),View.OnLongClickListener{
         }
     }
 
-
+    // Navigate to car_add_page layout
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
 
@@ -135,6 +123,7 @@ class MainActivity : AppCompatActivity(),View.OnLongClickListener{
         }
 
     }
+    // Calling again save function.
     override fun onPause() {
         super.onPause()
         saveCar()

@@ -48,7 +48,7 @@ class NewCarPage : DialogFragment() {
         builder.setView(dialogView)
         //user can add a new car for tap done button
 
-
+        // When we click the button select the image on the gallery.
         val btnOk = dialogView.findViewById(R.id.btnOk) as Button
         imageView = dialogView.findViewById(R.id.imageView) as ImageView
         button = dialogView.findViewById(R.id.buttonLoadPicture) as Button
@@ -58,7 +58,7 @@ class NewCarPage : DialogFragment() {
         }
 
 
-
+        // Access to data from the user. Then create new object.
         btnOk.setOnClickListener() {
 
 
@@ -88,6 +88,7 @@ class NewCarPage : DialogFragment() {
         return builder.create()
 
     }
+    // After the selecting image setting image Uri.
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == AppCompatActivity.RESULT_OK && requestCode == pickImage) {

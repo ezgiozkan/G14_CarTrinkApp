@@ -15,7 +15,7 @@ class JsonSerializer(
         private val filename : String,
         private val context: Context
 ) {
-
+    // Saving data to Json file.
   @Throws(IOException::class,JSONException::class)
   fun save(cars: List<Car>)
   {
@@ -26,6 +26,8 @@ class JsonSerializer(
           jArray.put(c.convertToJson())
 
       var writer: Writer? = null
+      // We init our file.
+
       try {
           val out = context.openFileOutput(filename, Context.MODE_PRIVATE)
 
@@ -40,7 +42,7 @@ class JsonSerializer(
 
 
   }
-
+    // Loading data to Json file.
     @Throws(IOException::class, JSONException::class)
     fun load(): ArrayList<Car> {
 
@@ -49,7 +51,6 @@ class JsonSerializer(
 
 
         try {
-
             val `in` = context.openFileInput(filename)
             reader = BufferedReader(InputStreamReader(`in`))
             val jsonString = StringBuilder()
@@ -59,7 +60,7 @@ class JsonSerializer(
             }
 
             val jArray = JSONTokener(jsonString.toString()).nextValue() as JSONArray
-
+            // We are adding i th JSONOBject into car array
             for (i in 0 until jArray.length()) {
                 carList.add(Car(jArray.getJSONObject(i)))
 

@@ -20,7 +20,7 @@ class CarAdapter(
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int): ListItemHolder {
-
+        // We assign our car_list_page xml
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.car_list_page, parent, false)
 
         return ListItemHolder(itemView)
@@ -30,7 +30,7 @@ class CarAdapter(
         RecyclerView.ViewHolder(view),
         View.OnLongClickListener,
         View.OnClickListener {
-
+        // We handle our UI component from Layout file.
         internal var brandName = view.findViewById<TextView>(R.id.listBrandName)
 
         internal var modelName = view.findViewById<TextView>(R.id.listModelName)
@@ -47,7 +47,7 @@ class CarAdapter(
             view.setOnLongClickListener(this)
         }
 
-
+        // We get the current position and removed from carlist array. Then saving JsonSerializer.
         override fun onLongClick(v: View?): Boolean {
 
             val position = adapterPosition
@@ -57,7 +57,7 @@ class CarAdapter(
             return true
         }
 
-
+        // When we click holder item, go to activity_car_pager layout.
         override fun onClick(view: View) {
 
             val intentToCarPager = Intent(view!!.context, CarPagerActivity::class.java)
@@ -67,7 +67,7 @@ class CarAdapter(
         }
 
     }
-
+    // we show data using this function for the recycler.
     override fun onBindViewHolder(holder: ListItemHolder, position: Int) {
 
         val car = carList!![position]
@@ -84,7 +84,7 @@ class CarAdapter(
 
 
     }
-
+    // Our car arrays size.
     override fun getItemCount(): Int {
         if (carList != null) {
             return carList.size

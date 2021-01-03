@@ -13,7 +13,7 @@ class CarEditPagerActivity : AppCompatActivity(){
       private var carList: ArrayList<Car>? = null
       private var mSerializer : JsonSerializer? =null
 
-
+    //
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_edit_fragment)
@@ -40,7 +40,7 @@ class CarEditPagerActivity : AppCompatActivity(){
             carList = ArrayList()
             Log.e("Error loading cars: ", "", e)
         }
-
+        // Previously entered data is being updated.
         btnOk.setOnClickListener {
             val updatedCarObj = Car()
 
@@ -54,7 +54,7 @@ class CarEditPagerActivity : AppCompatActivity(){
             updatedCarObj.description = description.text.toString()
 
             var jsonvar = updatedCarObj.updateJson(updatedCarObj)
-
+            // Back the Recycler page
             MainActivity().onBackPressed()
 
 

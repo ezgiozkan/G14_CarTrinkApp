@@ -51,7 +51,7 @@ class Car {
     constructor(){
 
     }
-
+    //Our Json Structure is created here.
     @Throws(JSONException::class)
     fun convertToJson() : JSONObject {
 
@@ -68,7 +68,7 @@ class Car {
         jo.put(JSON_DESCRIPTION,description)
         return jo
     }
-
+        // Passed object changed in this function.
         fun updateJson(car: Car): JSONObject{
 
             val jo = JSONObject()
