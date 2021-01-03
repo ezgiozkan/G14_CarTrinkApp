@@ -49,8 +49,6 @@ class NewCarPage : DialogFragment() {
         //user can add a new car for tap done button
 
 
-
-
         val btnOk = dialogView.findViewById(R.id.btnOk) as Button
         imageView = dialogView.findViewById(R.id.imageView) as ImageView
         button = dialogView.findViewById(R.id.buttonLoadPicture) as Button
@@ -73,7 +71,7 @@ class NewCarPage : DialogFragment() {
             newCar.color = color.text.toString()
             newCar.fuelType = fuelType.text.toString()
             newCar.gearType = gearType.text.toString()
-            newCar.km = kilometer.text.toString().toDouble()
+            newCar.km = kilometer.text.toString().toInt()
             newCar.image = Uri.parse(imageUri.toString())
             newCar.description = description.text.toString()
 

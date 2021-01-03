@@ -18,8 +18,10 @@ import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity(),View.OnLongClickListener{
 
+
     private var adapter: CarAdapter? = null
     private var carList : ArrayList<Car>? = null
+    var currentPosition = -1
     private var recyclerView: RecyclerView? = null
     private var mSerializer: JsonSerializer? = null
     private  var showDividers: Boolean = false
@@ -61,12 +63,6 @@ class MainActivity : AppCompatActivity(),View.OnLongClickListener{
         recyclerView!!.layoutManager = layoutManager
         recyclerView!!.itemAnimator = DefaultItemAnimator()
 
-        /* // Add a neat dividing line between items in the list
-         recyclerView!!.addItemDecoration(
-             DividerItemDecoration(this,
-                 LinearLayoutManager.VERTICAL)
-         )*/
-
         // set the adapter
         recyclerView!!.adapter = adapter
 
@@ -77,7 +73,7 @@ class MainActivity : AppCompatActivity(),View.OnLongClickListener{
         //val position = adapterPosition
         //carList!!.removeAt(position)
         //adapter!!.notifyItemRemoved(position)
-        mSerializer?.save(carList!!)
+        //mSerializer?.save(carList!!)
         return true
     }
 
@@ -88,24 +84,16 @@ class MainActivity : AppCompatActivity(),View.OnLongClickListener{
         adapter!!.notifyDataSetChanged()
 
     }
-    fun showCar(carToShow: Int) {
-        val dialog = ShowCarListPage()
-        dialog.sendCarSelected(carList!![carToShow])
-        dialog.show(supportFragmentManager, "")
-    }
+    fun deleteCarSecond(car:Car){
 
-
-    fun deleteCar(adapterPosition: Int) {
-
-        println("asd")
-        println(adapterPosition)
-        val position = adapterPosition
-        carList!!.removeAt(position)
-        adapter!!.notifyItemRemoved(position)
+        carList!!.remove(car)
+        adapter!!.notifyItemRemoved(0)
+        adapter!!.notifyDataSetChanged()
         mSerializer!!.save(carList!!)
 
-
     }
+
+
     private fun saveCar() {
         try {
             mSerializer!!.save(this.carList!!)
@@ -119,11 +107,6 @@ class MainActivity : AppCompatActivity(),View.OnLongClickListener{
         return when (item.itemId) {
 
             R.id.OptionItemSelected -> {
-
-                //val intent = Intent(this, NewCarPage::class.java)
-
-              //  startActivity(intent)
-              //  true
 
                 val dialog = NewCarPage()
                 dialog.show(supportFragmentManager, "")
@@ -155,7 +138,6 @@ class MainActivity : AppCompatActivity(),View.OnLongClickListener{
     override fun onPause() {
         super.onPause()
         saveCar()
-        Toast.makeText(this, "Cars saved to JSON file", Toast.LENGTH_SHORT).show()
 
     }
 

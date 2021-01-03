@@ -48,8 +48,8 @@ class CarPagerActivity : AppCompatActivity(){
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val myPost = data?.getIntExtra("adapterPosition", 123)
-        println(myPost)
-        println("adadadada")
+
+
     }
     class CarPagerAdapter(fm: FragmentManager, private val carFragmentList: ArrayList<Fragment>) : FragmentPagerAdapter(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         override fun getCount() = carFragmentList.size
